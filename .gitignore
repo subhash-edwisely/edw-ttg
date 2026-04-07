@@ -1,0 +1,11 @@
+/*
+
+!/.gitignore
+!/streamlit_double_allot.py
+!/double_allot.py
+
+!/data/
+/data/*
+!/data/courses.json
+!/data/recs.json
+!/data/two_section_timetable.json
