@@ -8,11 +8,11 @@ import streamlit as st
 import pandas as pd
 from collections import defaultdict
 from itertools import product
-from openai import OpenAI
-from dotenv import load_dotenv
+# from openai import OpenAI
+# from dotenv import load_dotenv
 
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# load_dotenv()
+# client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 st.set_page_config(page_title="VIT Chennai FFCS", layout="wide")
 
