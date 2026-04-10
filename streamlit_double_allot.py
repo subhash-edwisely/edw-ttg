@@ -563,7 +563,24 @@ with tab2:
         def show_carousel():
             all_combos = get_all_zero_conflict_combos(sel_sid)
             if not all_combos:
-                st.error("No conflict-free options found for this student.")
+                st.warning("No conflict-free combination exists. Showing least-conflict option.")
+                fallback = student_sections[sel_sid]["selection"]
+                if not fallback:
+                    st.error("No schedule data available for this student.")
+                    return
+                st.markdown("🟩 Theory &nbsp;|&nbsp; 🟢 Lab &nbsp;|&nbsp; 🟥 Conflict")
+                st.markdown(build_timetable_html(combo=fallback), unsafe_allow_html=True)
+                rows = []
+                for course, sel in sorted(fallback.items()):
+                    rows.append({
+                        "Course":  course,
+                        "Name":    course_name_map.get(course,"")[:35],
+                        "Type":    "🎓 Theory" if sel["type"]=="theory" else "🔬 Lab",
+                        "Section": "🌅 Morning" if sel["section"]=="morning" else "🌆 Evening",
+                        "Slot":    sel["slot"],
+                    })
+                st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True,
+                            height=min(35*len(rows)+38, 280))
                 return
 
             pref_key = f"applied_prefs_{sel_sid}"
